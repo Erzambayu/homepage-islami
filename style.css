@@ -350,6 +350,34 @@ h2 {
     text-align: center;
     font-size: 1.1rem;
     margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+}
+.weather-icon {
+    width: 54px;
+    height: 54px;
+    margin-bottom: 0.2em;
+}
+.weather-extra {
+    font-size: 0.98rem;
+    color: #ffe066;
+    margin-bottom: 0.2em;
+}
+.weather-sun {
+    font-size: 0.95rem;
+    color: #00eaff;
+    margin-bottom: 0.2em;
+}
+.weather-tip {
+    font-size: 0.98rem;
+    color: #fff;
+    background: rgba(36,198,220,0.13);
+    border-radius: 8px;
+    padding: 0.3em 1em;
+    margin-top: 0.3em;
+    font-style: italic;
 }
 .weather-temp {
     font-size: 2rem;
@@ -475,4 +503,81 @@ body.dark .search-form button:hover {
     color: #ffe066;
     margin-top: 1rem;
     font-style: italic;
+}
+
+.weather-detect-btn {
+    display: block;
+    margin: 0.5em auto 0.5em auto;
+    background: #24c6dc;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 0.5em 1.5em;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #0001;
+    transition: background 0.2s;
+}
+.weather-detect-btn:hover {
+    background: #1e3c72;
+}
+
+.weather-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: stretch;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+.weather-container {
+    flex: 1 1 300px;
+    min-width: 260px;
+    background: rgba(255,255,255,0.13);
+    border-radius: 18px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 1.5rem 1rem;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+}
+.weather-city {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffe066;
+    margin-bottom: 0.2rem;
+}
+.weather-temp {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #24c6dc;
+    margin-bottom: 0.2rem;
+}
+.weather-desc {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+.weather-extra {
+    font-size: 1rem;
+    color: #ffe066;
+    margin-bottom: 0.2rem;
+}
+.weather-tip {
+    font-size: 1rem;
+    color: #fff;
+    background: rgba(36,198,220,0.13);
+    border-radius: 8px;
+    padding: 0.3em 1em;
+    margin-top: 0.3em;
+    font-style: italic;
+}
+@media (max-width: 900px) {
+    .weather-grid {
+        flex-direction: column;
+        gap: 1rem;
+    }
 } 

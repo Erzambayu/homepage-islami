@@ -131,11 +131,11 @@ async function fetchQuranVerse() {
                 <span class=\"ayat-badge\">Ayat ${ayat.ayat}</span>
             </div>
         `;
-        document.getElementById('audioMurottal').innerHTML = '';
+        showAudioMurottal(ayat.surah, ayat.ayat);
     }
 }
 
-// Fetch daily quote from local API
+// Quotes harian: hanya gunakan fallback lokal, jangan fetch ke api eksternal
 async function fetchDailyQuote() {
     const fallbackQuotes = [
         {text: 'Jangan menyerah, setiap ujian pasti ada hikmahnya.', author: 'Anonim'},
@@ -143,29 +143,12 @@ async function fetchDailyQuote() {
         {text: 'Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya.', author: 'HR. Ahmad'},
         {text: 'Kesabaran itu ada dua: sabar atas sesuatu yang tidak kau ingin dan sabar menahan diri dari sesuatu yang kau inginkan.', author: 'Ali bin Abi Thalib'}
     ];
-    try {
-        // Quotes API lokal Indonesia (bebas CORS)
-        const response = await fetch('https://api.akuari.my.id/hub/quotes');
-        const data = await response.json();
-        let quote = data.quotes || data.data || data.result || '';
-        let author = data.author || 'Anonim';
-        if (typeof quote === 'object') {
-            quote = quote.quote || quote.text || '';
-            author = quote.author || author;
-        }
-        if (!quote) throw new Error('No quote');
-        document.getElementById('dailyQuote').innerHTML = `
-            <div class="quote-text">"${quote}"</div>
-            <div class="quote-author">- ${author}</div>
-        `;
-    } catch (error) {
-        // Fallback ke quotes lokal random
-        const q = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
-        document.getElementById('dailyQuote').innerHTML = `
-            <div class="quote-text">"${q.text}"</div>
-            <div class="quote-author">- ${q.author}</div>
-        `;
-    }
+    // Fallback ke quotes lokal random
+    const q = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
+    document.getElementById('dailyQuote').innerHTML = `
+        <div class="quote-text">"${q.text}"</div>
+        <div class="quote-author">- ${q.author}</div>
+    `;
 }
 
 // Initial fetch
@@ -281,51 +264,90 @@ function showRandomSunnah() {
 showRandomSunnah();
 
 // Widget Cuaca otomatis
-async function showWeather() {
-    if (!navigator.geolocation) {
-        document.getElementById('weatherWidget').innerHTML = 'Tidak bisa mendapatkan lokasi.';
-        return;
+function weatherIcon(code) {
+    // Mapping icon SVG sederhana
+    if ([0].includes(code)) return '☀️'; // Cerah
+    if ([1,2,3].includes(code)) return '⛅'; // Cerah Berawan
+    if ([45,48].includes(code)) return '🌫️'; // Berkabut
+    if ([51,53,55,56,57].includes(code)) return '🌦️'; // Gerimis
+    if ([61,63,65,66,67,80,81,82].includes(code)) return '🌧️'; // Hujan
+    if ([71,73,75,77,85,86].includes(code)) return '❄️'; // Salju
+    if ([95,96,99].includes(code)) return '⛈️'; // Badai Petir
+    return '🌡️';
+}
+function weatherTip(code) {
+    if ([0].includes(code)) return 'Cuaca cerah, jangan lupa pakai sunscreen!';
+    if ([1,2,3].includes(code)) return 'Cerah berawan, tetap semangat beraktivitas!';
+    if ([45,48].includes(code)) return 'Berkabut, hati-hati di jalan.';
+    if ([51,53,55,56,57].includes(code)) return 'Ada gerimis, siapkan payung!';
+    if ([61,63,65,66,67,80,81,82].includes(code)) return 'Hujan, jangan lupa bawa payung!';
+    if ([71,73,75,77,85,86].includes(code)) return 'Waspada salju, tetap hangat!';
+    if ([95,96,99].includes(code)) return 'Badai petir, sebaiknya di rumah saja.';
+    return 'Jaga kesehatan dan tetap semangat!';
+}
+
+// Mapping kelurahan ke kode wilayah BMKG (format titik, adm4)
+const bmkgWilayah = {
+    'petojo utara': '31.71.01.1003',
+    'jatibening': '32.75.08.1002',
+};
+
+function weatherAdvice(desc, t) {
+    desc = desc.toLowerCase();
+    if (desc.includes('hujan')) return 'Bawa payung atau jas hujan, hati-hati di jalan!';
+    if (desc.includes('panas') || (t && t >= 32)) return 'Cuaca panas, minum air putih yang cukup dan gunakan sunscreen!';
+    if (desc.includes('berawan') || desc.includes('mendung')) return 'Cuaca mendung, tetap semangat dan waspada perubahan cuaca.';
+    if (desc.includes('cerah')) return 'Cuaca cerah, nikmati harimu!';
+    return 'Jaga kesehatan dan tetap semangat!';
+}
+
+async function showWeatherBMKG2(kodeWilayah, label, elId) {
+    try {
+        const res = await fetch(`https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=${kodeWilayah}`);
+        const data = await res.json();
+        const cuacaArr = data.data[0].cuaca.flat();
+        const now = new Date();
+        let cuaca = cuacaArr.find(c => new Date(c.local_datetime) > now) || cuacaArr[0];
+        document.getElementById(elId).innerHTML = `
+            <div class="weather-city">${label}</div>
+            <div class="weather-temp">${cuaca.t}°C</div>
+            <div class="weather-desc">${cuaca.weather_desc}</div>
+            <div class="weather-extra">Kelembapan: ${cuaca.hu}% | Angin: ${cuaca.ws} km/jam (${cuaca.wd})</div>
+            <div class="weather-tip">${weatherAdvice(cuaca.weather_desc, cuaca.t)}</div>
+            <div class="weather-tip" style="background:none;color:#b0b0b0;font-size:0.95em;margin-top:0.5em;">Sumber: BMKG</div>
+        `;
+    } catch {
+        document.getElementById(elId).innerHTML = 'Gagal memuat cuaca dari BMKG.';
     }
-    navigator.geolocation.getCurrentPosition(async (pos) => {
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
-        try {
-            const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto`);
-            const data = await res.json();
-            const temp = data.current_weather.temperature;
-            const weatherCode = data.current_weather.weathercode;
-            const desc = weatherDesc(weatherCode);
-            // Get city name
-            let city = '';
-            try {
-                const locRes = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
-                const locData = await locRes.json();
-                city = locData.address.city || locData.address.town || locData.address.village || locData.address.state || '';
-            } catch {}
-            document.getElementById('weatherWidget').innerHTML = `
-                <div class="weather-city">${city}</div>
-                <div class="weather-temp">${temp}°C</div>
-                <div class="weather-desc">${desc}</div>
-            `;
-        } catch {
-            document.getElementById('weatherWidget').innerHTML = 'Gagal memuat cuaca.';
-        }
-    }, () => {
-        document.getElementById('weatherWidget').innerHTML = 'Izin lokasi ditolak.';
-    });
 }
-function weatherDesc(code) {
-    // Open-Meteo weather code simple mapping
-    if ([0].includes(code)) return 'Cerah';
-    if ([1,2,3].includes(code)) return 'Cerah Berawan';
-    if ([45,48].includes(code)) return 'Berkabut';
-    if ([51,53,55,56,57].includes(code)) return 'Gerimis';
-    if ([61,63,65,66,67,80,81,82].includes(code)) return 'Hujan';
-    if ([71,73,75,77,85,86].includes(code)) return 'Salju';
-    if ([95,96,99].includes(code)) return 'Badai Petir';
-    return 'Cuaca tidak diketahui';
+
+// Tampilkan dua wilayah
+showWeatherBMKG2('31.71.01.1003', 'Petojo Utara (BMKG)', 'weatherPetojo');
+showWeatherBMKG2('32.75.08.1002', 'Jatibening (BMKG)', 'weatherJatibening');
+
+// Quotes harian: gunakan API eksternal, fallback lokal
+async function fetchDailyQuote() {
+    const fallbackQuotes = [
+        {text: 'Jangan menyerah, setiap ujian pasti ada hikmahnya.', author: 'Anonim'},
+        {text: 'Kebahagiaan bukanlah milik mereka yang hebat dalam segalanya, namun mereka yang mampu temukan hal sederhana dalam hidup dan tetap bersyukur.', author: 'Anonim'},
+        {text: 'Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya.', author: 'HR. Ahmad'},
+        {text: 'Kesabaran itu ada dua: sabar atas sesuatu yang tidak kau ingin dan sabar menahan diri dari sesuatu yang kau inginkan.', author: 'Ali bin Abi Thalib'}
+    ];
+    try {
+        const response = await fetch('https://api.quotable.io/random');
+        const data = await response.json();
+        document.getElementById('dailyQuote').innerHTML = `
+            <div class="quote-text">"${data.content}"</div>
+            <div class="quote-author">- ${data.author}</div>
+        `;
+    } catch {
+        const q = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
+        document.getElementById('dailyQuote').innerHTML = `
+            <div class="quote-text">"${q.text}"</div>
+            <div class="quote-author">- ${q.author}</div>
+        `;
+    }
 }
-showWeather();
 
 // --- Countdown waktu sholat berikutnya ---
 function getNextPrayerTime() {

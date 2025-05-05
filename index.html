@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage Islami</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><span id="greeting">Selamat Datang</span> 👋</h1>
+            <div class="date-time" id="dateTime"></div>
+        </header>
+        <div class="marquee"><span id="marqueeText">Selamat datang di homepage Islami modern!</span></div>
+        <div class="hero-illustration">
+            <img src="masjid.svg" alt="Masjid" style="max-width:120px;width:100%;margin:0 auto;display:block;filter:drop-shadow(0 2px 8px #0002);">
+        </div>
+
+        <section class="search-section">
+            <form action="https://www.google.com/search" method="GET" class="search-form">
+                <input type="text" name="q" placeholder="Cari di Google..." required>
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </section>
+
+        <section class="weather-widget">
+            <h2>Cuaca Saat Ini</h2>
+            <div class="weather-container" id="weatherWidget">
+                <!-- Cuaca akan muncul di sini -->
+            </div>
+        </section>
+
+        <section class="prayer-times">
+            <h2>Jadwal Sholat</h2>
+            <div class="prayer-grid" id="prayerTimes">
+                <!-- Prayer times will be inserted here -->
+            </div>
+            <div class="prayer-countdown" id="prayerCountdown">
+                <!-- Countdown waktu sholat berikutnya -->
+            </div>
+        </section>
+
+        <section class="quran-verse">
+            <h2>Ayat Al-Quran Hari Ini</h2>
+            <div class="verse-container" id="quranVerse">
+                <!-- Quran verse will be inserted here -->
+            </div>
+            <div class="audio-murottal" id="audioMurottal">
+                <!-- Tombol audio murottal ayat -->
+            </div>
+        </section>
+
+        <section class="daily-doa">
+            <h2>Doa Harian</h2>
+            <div class="doa-container" id="dailyDoa">
+                <!-- Doa harian akan muncul di sini -->
+            </div>
+        </section>
+        <section class="sunnah-inspirasi">
+            <h2>Inspirasi Sunnah Harian</h2>
+            <div class="sunnah-container" id="sunnahInspirasi">
+                <!-- Sunnah harian akan muncul di sini -->
+            </div>
+        </section>
+
+        <section class="daily-quote">
+            <h2>Quotes Hari Ini</h2>
+            <div class="quote-container" id="dailyQuote">
+                <!-- Daily quote will be inserted here -->
+            </div>
+        </section>
+    </div>
+    <div class="sky-anim">
+        <svg id="sun" width="80" height="80" style="position:absolute;left:10%;top:30px;z-index:0;display:none;" viewBox="0 0 80 80"><circle cx="40" cy="40" r="24" fill="#ffe066"/><g>
+        <circle cx="40" cy="10" r="6" fill="#ffe066"/>
+        <circle cx="40" cy="70" r="6" fill="#ffe066"/>
+        <circle cx="10" cy="40" r="6" fill="#ffe066"/>
+        <circle cx="70" cy="40" r="6" fill="#ffe066"/>
+        </g></svg>
+        <svg id="moon" width="60" height="60" style="position:absolute;left:12%;top:40px;z-index:0;display:none;" viewBox="0 0 60 60"><circle cx="30" cy="30" r="20" fill="#fffbe6"/><circle cx="38" cy="30" r="16" fill="#232526"/></svg>
+        <svg id="cloud1" width="120" height="60" style="position:absolute;left:30%;top:60px;z-index:0;display:none;" viewBox="0 0 120 60"><ellipse cx="60" cy="40" rx="50" ry="18" fill="#fff" opacity=".7"/><ellipse cx="90" cy="30" rx="20" ry="12" fill="#fff" opacity=".7"/><ellipse cx="40" cy="30" rx="18" ry="10" fill="#fff" opacity=".7"/></svg>
+        <svg id="cloud2" width="90" height="40" style="position:absolute;left:65%;top:90px;z-index:0;display:none;" viewBox="0 0 90 40"><ellipse cx="45" cy="30" rx="35" ry="12" fill="#fff" opacity=".6"/><ellipse cx="70" cy="20" rx="14" ry="8" fill="#fff" opacity=".6"/></svg>
+        <svg id="stars" width="100%" height="100" style="position:absolute;left:0;top:0;z-index:0;display:none;" viewBox="0 0 400 100">
+            <circle cx="30" cy="30" r="2" fill="#fff"/>
+            <circle cx="120" cy="60" r="1.5" fill="#fff"/>
+            <circle cx="200" cy="20" r="1.2" fill="#fff"/>
+            <circle cx="350" cy="80" r="1.7" fill="#fff"/>
+            <circle cx="300" cy="40" r="1.3" fill="#fff"/>
+            <circle cx="250" cy="70" r="1.1" fill="#fff"/>
+        </svg>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

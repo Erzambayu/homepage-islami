@@ -1,0 +1,478 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    color: #fff;
+    transition: background 1s;
+}
+
+body.morning {
+    background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+}
+body.afternoon {
+    background: linear-gradient(135deg, #24c6dc 0%, #5433ff 100%);
+}
+body.evening {
+    background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+}
+body.night {
+    background: linear-gradient(135deg, #232526 0%, #414345 100%);
+}
+
+body.dark {
+    background: linear-gradient(135deg, #232526 0%, #414345 100%) !important;
+    color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2.7rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.18);
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #fff 60%, #00eaff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.date-time {
+    font-size: 1.2rem;
+    opacity: 0.95;
+    font-weight: 500;
+}
+
+.search-section {
+    margin-bottom: 3rem;
+}
+
+.search-form {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    border-radius: 50px 0 0 50px;
+    font-size: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-form button {
+    padding: 1rem 2rem;
+    border: none;
+    background: #4CAF50;
+    color: white;
+    border-radius: 0 50px 50px 0;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-form button:hover {
+    background: #45a049;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-illustration {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    animation: floatY 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatY {
+    from { transform: translateY(0); }
+    to { transform: translateY(-18px); }
+}
+
+.marquee {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.13);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    padding: 0.7em 0;
+    box-shadow: 0 2px 8px #0001;
+}
+
+.marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 12s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+section {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(16px);
+    border-radius: 22px;
+    padding: 2.2rem 1.5rem;
+    margin-bottom: 2.2rem;
+    box-shadow: 0 8px 24px rgba(30,60,114,0.10), 0 1.5px 4px rgba(0,0,0,0.08);
+    transition: box-shadow 0.3s, background 0.5s;
+    animation: fadeInUp 1.2s cubic-bezier(.39,.575,.56,1) both;
+}
+
+section:hover {
+    box-shadow: 0 12px 32px rgba(30,60,114,0.16), 0 2px 8px rgba(0,0,0,0.10);
+    background: rgba(255,255,255,0.22);
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.prayer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    text-align: center;
+}
+
+.prayer-time {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.prayer-name {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.verse-container, .quote-container {
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    padding: 1rem;
+}
+
+.verse-container {
+    direction: rtl;
+    font-family: 'Traditional Arabic', serif;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.verse-text {
+    font-size: 2.1rem;
+    color: #fff;
+    text-shadow: 0 2px 12px #1e3c72cc, 0 1px 0 #fff2;
+    margin-bottom: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.verse-translation {
+    direction: ltr;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: #e0e0e0;
+    margin-bottom: 1.2rem;
+    border-bottom: 1px solid #ffffff22;
+    padding-bottom: 0.7rem;
+}
+
+.verse-info {
+    direction: ltr;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+}
+
+.surah-badge {
+    background: linear-gradient(90deg, #4CAF50 60%, #2a5298 100%);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 0.3em 1em;
+    box-shadow: 0 2px 8px #0002;
+    margin-right: 0.5em;
+    letter-spacing: 0.5px;
+    display: inline-block;
+}
+
+.ayat-badge {
+    background: #fff2;
+    color: #fff;
+    font-size: 0.98rem;
+    border-radius: 16px;
+    padding: 0.2em 0.8em;
+    font-weight: 500;
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form input {
+        border-radius: 50px;
+        margin-bottom: 1rem;
+    }
+
+    .search-form button {
+        border-radius: 50px;
+    }
+
+    .prayer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.sky-anim {
+    position: fixed;
+    width: 100vw;
+    height: 180px;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#sun, #moon, #cloud1, #cloud2, #stars {
+    transition: opacity 1s, display 1s;
+}
+
+#cloud1, #cloud2 {
+    animation: cloudMove 18s linear infinite alternate;
+}
+
+@keyframes cloudMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(40px); }
+}
+
+#stars circle {
+    opacity: 0.8;
+    animation: twinkle 2.5s infinite alternate;
+}
+
+#stars circle:nth-child(2) { animation-delay: 0.5s; }
+#stars circle:nth-child(3) { animation-delay: 1s; }
+#stars circle:nth-child(4) { animation-delay: 1.5s; }
+#stars circle:nth-child(5) { animation-delay: 2s; }
+#stars circle:nth-child(6) { animation-delay: 2.2s; }
+
+@keyframes twinkle {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}
+
+.daily-doa, .weather-widget {
+    background: rgba(255,255,255,0.13);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px #0001;
+    padding: 1.5rem 1rem;
+    animation: fadeInUp 1.2s cubic-bezier(.39,.575,.56,1) both;
+}
+.doa-container {
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-top: 1rem;
+}
+.doa-arab {
+    font-size: 1.5rem;
+    font-family: 'Traditional Arabic', serif;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 8px #1e3c72cc;
+}
+.doa-latin {
+    font-size: 1.05rem;
+    color: #ffe066;
+    margin-bottom: 0.3rem;
+}
+.doa-arti {
+    font-size: 1.05rem;
+    color: #e0e0e0;
+    font-style: italic;
+}
+.weather-container {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+.weather-temp {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #00eaff;
+}
+.weather-desc {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+.weather-city {
+    font-size: 1rem;
+    color: #ffe066;
+    margin-bottom: 0.2rem;
+}
+
+.prayer-countdown {
+    margin-top: 1.2rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffe066;
+    background: rgba(0,0,0,0.10);
+    border-radius: 12px;
+    padding: 0.7em 0.5em;
+    box-shadow: 0 2px 8px #0001;
+    letter-spacing: 1px;
+    animation: fadeIn 1s;
+}
+#modeSwitch {
+    outline: none;
+}
+#modeSwitch:hover {
+    background: rgba(0,0,0,0.18);
+}
+#modeIcon {
+    pointer-events: none;
+}
+body.dark {
+    filter: brightness(0.92) contrast(1.08) saturate(1.1);
+}
+
+.daily-doa, .weather-widget, section, .prayer-countdown {
+    background: rgba(255,255,255,0.13);
+    color: inherit;
+}
+body.dark .daily-doa, body.dark .weather-widget, body.dark section, body.dark .prayer-countdown {
+    background: rgba(0,0,0,0.18);
+    color: #fff;
+}
+body.dark .verse-text {
+    color: #1e3c72 !important;
+    text-shadow: none !important;
+}
+body.dark .surah-badge {
+    background: #24c6dc !important;
+    color: #fff !important;
+}
+body.dark .ayat-badge {
+    background: #eee !important;
+    color: #222 !important;
+}
+body.dark .doa-arab {
+    color: #1e3c72 !important;
+    text-shadow: none !important;
+}
+body.dark .doa-latin {
+    color: #f9d423 !important;
+}
+body.dark .doa-arti {
+    color: #555 !important;
+}
+body.dark .weather-city {
+    color: #f9d423 !important;
+}
+body.dark .quote-text, body.dark .quote-author {
+    color: #333 !important;
+}
+body.dark .search-form input {
+    background: #f8f8f8 !important;
+    color: #222 !important;
+    border: 1px solid #eee !important;
+}
+body.dark .search-form button {
+    background: #24c6dc !important;
+}
+body.dark .search-form button:hover {
+    background: #1e3c72 !important;
+}
+
+.audio-murottal {
+    text-align: center;
+    margin-top: 1.2rem;
+}
+.audio-murottal button {
+    background: #24c6dc;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 0.7em 2em;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #0001;
+    transition: background 0.2s;
+}
+.audio-murottal button:hover {
+    background: #1e3c72;
+}
+.sunnah-inspirasi {
+    background: rgba(255,255,255,0.13);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px #0001;
+    padding: 1.5rem 1rem;
+    animation: fadeInUp 1.2s cubic-bezier(.39,.575,.56,1) both;
+}
+.sunnah-container {
+    text-align: center;
+    font-size: 1.15rem;
+    color: #ffe066;
+    margin-top: 1rem;
+    font-style: italic;
+} 

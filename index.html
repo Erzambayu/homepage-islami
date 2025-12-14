@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Homepage Islami - Jadwal Sholat, Ayat Al-Quran, Doa Harian, dan Inspirasi Islami">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Homepage Islami</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="night">
+    <!-- Sky Animation -->
+    <div class="sky-anim">
+        <svg id="sun" width="80" height="80" style="position:absolute;left:10%;top:30px;z-index:0;display:none;" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="24" fill="#ffe066"/>
+            <g>
+                <circle cx="40" cy="10" r="6" fill="#ffe066"/>
+                <circle cx="40" cy="70" r="6" fill="#ffe066"/>
+                <circle cx="10" cy="40" r="6" fill="#ffe066"/>
+                <circle cx="70" cy="40" r="6" fill="#ffe066"/>
+            </g>
+        </svg>
+        <svg id="moon" width="60" height="60" style="position:absolute;left:12%;top:40px;z-index:0;display:none;" viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="20" fill="#fffbe6"/>
+            <circle cx="38" cy="30" r="16" fill="#1a1a2e"/>
+        </svg>
+        <svg id="cloud1" width="120" height="60" style="position:absolute;left:30%;top:60px;z-index:0;display:none;" viewBox="0 0 120 60">
+            <ellipse cx="60" cy="40" rx="50" ry="18" fill="#fff" opacity=".7"/>
+            <ellipse cx="90" cy="30" rx="20" ry="12" fill="#fff" opacity=".7"/>
+            <ellipse cx="40" cy="30" rx="18" ry="10" fill="#fff" opacity=".7"/>
+        </svg>
+        <svg id="cloud2" width="90" height="40" style="position:absolute;left:65%;top:90px;z-index:0;display:none;" viewBox="0 0 90 40">
+            <ellipse cx="45" cy="30" rx="35" ry="12" fill="#fff" opacity=".6"/>
+            <ellipse cx="70" cy="20" rx="14" ry="8" fill="#fff" opacity=".6"/>
+        </svg>
+        <svg id="stars" width="100%" height="120" style="position:absolute;left:0;top:0;z-index:0;display:none;" viewBox="0 0 400 120">
+            <circle cx="30" cy="30" r="2" fill="#fff"/>
+            <circle cx="120" cy="60" r="1.5" fill="#fff"/>
+            <circle cx="200" cy="20" r="1.2" fill="#fff"/>
+            <circle cx="350" cy="80" r="1.7" fill="#fff"/>
+            <circle cx="300" cy="40" r="1.3" fill="#fff"/>
+            <circle cx="250" cy="70" r="1.1" fill="#fff"/>
+            <circle cx="80" cy="90" r="1.4" fill="#fff"/>
+            <circle cx="380" cy="25" r="1.6" fill="#fff"/>
+        </svg>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1><span id="greeting">Selamat Datang</span> 👋</h1>
+            <div class="date-time">
+                <div id="dateTime">Memuat...</div>
+                <div class="hijri-date" id="hijriDate"></div>
+            </div>
+            <div class="header-controls">
+                <button class="btn-icon" id="darkModeToggle" title="Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn-icon" id="refreshBtn" title="Refresh Data">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Marquee -->
+        <div class="marquee">
+            <span id="marqueeText">Selamat datang di Homepage Islami Modern! ✨</span>
+        </div>
+
+        <!-- Hero Illustration -->
+        <div class="hero-illustration">
+            <img src="masjid.svg" alt="Masjid">
+        </div>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <form action="https://www.google.com/search" method="GET" class="search-form">
+                <input type="text" name="q" placeholder="Cari di Google..." required autocomplete="off">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </section>
+
+        <!-- Weather Widget -->
+        <section class="weather-widget">
+            <h2><i class="fas fa-cloud-sun"></i> Cuaca Saat Ini</h2>
+            <div class="weather-container" id="weatherWidget">
+                <div class="skeleton skeleton-circle"></div>
+                <div class="skeleton skeleton-text" style="width:60%;margin:0 auto;"></div>
+                <div class="skeleton skeleton-text" style="width:40%;margin:0 auto;"></div>
+            </div>
+        </section>
+
+        <!-- Prayer Times -->
+        <section class="prayer-times">
+            <h2><i class="fas fa-mosque"></i> Jadwal Sholat</h2>
+            <div class="prayer-grid" id="prayerTimes">
+                <div class="prayer-time skeleton" style="height:70px;"></div>
+                <div class="prayer-time skeleton" style="height:70px;"></div>
+                <div class="prayer-time skeleton" style="height:70px;"></div>
+                <div class="prayer-time skeleton" style="height:70px;"></div>
+                <div class="prayer-time skeleton" style="height:70px;"></div>
+                <div class="prayer-time skeleton" style="height:70px;"></div>
+            </div>
+            <div class="prayer-countdown" id="prayerCountdown">
+                <span>Menghitung...</span>
+            </div>
+        </section>
+
+        <!-- Quran Verse -->
+        <section class="quran-verse">
+            <h2><i class="fas fa-book-quran"></i> Ayat Al-Quran Hari Ini</h2>
+            <div class="verse-container" id="quranVerse">
+                <div class="skeleton skeleton-text" style="width:80%;margin:0 auto;height:2rem;"></div>
+                <div class="skeleton skeleton-text" style="width:60%;margin:1rem auto;"></div>
+            </div>
+            <div class="audio-murottal" id="audioMurottal"></div>
+        </section>
+
+        <!-- Daily Doa -->
+        <section class="daily-doa">
+            <h2><i class="fas fa-hands-praying"></i> Doa Harian</h2>
+            <div class="doa-container" id="dailyDoa">
+                <div class="skeleton skeleton-text" style="width:70%;margin:0 auto;height:1.5rem;"></div>
+                <div class="skeleton skeleton-text" style="width:50%;margin:0.5rem auto;"></div>
+            </div>
+        </section>
+
+        <!-- Tasbih Widget (NEW) -->
+        <section class="tasbih-section">
+            <h2><i class="fas fa-circle-dot"></i> Tasbih Digital</h2>
+            <div class="tasbih-widget">
+                <div class="tasbih-counter" id="tasbihCount">0</div>
+                <div class="tasbih-label">Ketuk tombol untuk menghitung dzikir</div>
+                <div class="tasbih-buttons">
+                    <button class="btn-tasbih" id="tasbihBtn">
+                        <i class="fas fa-plus"></i> Hitung
+                    </button>
+                    <button class="btn-tasbih reset" id="tasbihReset">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sunnah Inspirasi -->
+        <section class="sunnah-inspirasi">
+            <h2><i class="fas fa-lightbulb"></i> Inspirasi Sunnah Harian</h2>
+            <div class="sunnah-container" id="sunnahInspirasi">
+                <div class="skeleton skeleton-text" style="width:60%;margin:0 auto;"></div>
+            </div>
+        </section>
+
+        <!-- Daily Quote -->
+        <section class="daily-quote">
+            <h2><i class="fas fa-quote-left"></i> Quote Hari Ini</h2>
+            <div class="quote-container" id="dailyQuote">
+                <div class="skeleton skeleton-text" style="width:80%;margin:0 auto;"></div>
+                <div class="skeleton skeleton-text" style="width:40%;margin:0.5rem auto;"></div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="text-align:center;padding:1rem;opacity:0.7;font-size:0.9rem;">
+            <p>Made with ❤️ | Homepage Islami Remastered</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
